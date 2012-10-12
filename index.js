@@ -13,7 +13,7 @@ function TagInput(input, opts) {
   this.view = { container: null, tags: null, input: input }
 
   this.view.container = document.createElement('div')
-  this.view.container.className = 'taginputContainer'
+  this.view.container.className = 'tag-input'
   this.view.container.style = input.style
   this.view.tags = document.createElement('ul')
 
