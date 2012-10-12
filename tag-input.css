@@ -1,9 +1,6 @@
 
 .tag-input {
-  font-size: 0.78em;
-  border: 1px solid #cccccc;
   display: inline-block;
-  padding: 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -13,9 +10,7 @@
 
 .tag-input input, 
 .tag-input input:focus {
-  margin-top: 2px;
-  padding: 0px;
-  border: 1px solid white;
+  border: none;
   outline: none;
 }
 
@@ -28,21 +23,4 @@
 
 .tag-input ul li {
   display: inline-block;
-  margin-top: 0px;
-  margin-bottom: 2px;
-  margin-right: 2px;
-  border-radius: 5px;
-  padding: 2px;
-  border: 1px solid #bbddbb;
-  background-color: #dcffdc;
 }
-
-.tag-input ul li a:link, 
-.tag-input ul li a:visited, 
-.tag-input ul li a:active {
-  color: #545454;
-  opacity: 0.5;
-  margin-left: 3px;
-  text-decoration: none;
-}
-
