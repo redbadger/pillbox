@@ -1,8 +1,25 @@
-var Emitter = require('emitter')
+
+/**
+ * Module dependencies.
+ */
+
+var Emitter = require('emitter');
+
+/**
+ * Expose `TagInput`.
+ */
 
 module.exports = TagInput
 
-Emitter(TagInput.prototype)
+
+/**
+ * Initialize a `TagInput` with the given
+ * `input` element and `opts`.
+ *
+ * @param {Element} input
+ * @param {Object} opts
+ * @api public
+ */
 
 function TagInput(input, opts) {
   if (!(this instanceof TagInput)) return new TagInput(input, opts)
@@ -26,13 +43,27 @@ function TagInput(input, opts) {
   input.onkeyup = function (e) {
     if (e.which === 13) {
       e.preventDefault()
-      self.addtag(e.target.value)
+      self.add(e.target.value)
       e.target.value = ''
     }
   }
 }
 
-TagInput.prototype.addtag = function (tag) {
+/**
+ * Mixin emitter.
+ */
+
+Emitter(TagInput.prototype)
+
+/**
+ * Add `tag`.
+ *
+ * @param {String} tag
+ * @return {TagInput} self
+ * @api public
+ */
+
+TagInput.prototype.add = function(tag) {
   var self = this
   if (this.model.tags.indexOf(tag) !== -1)
     return
@@ -50,15 +81,16 @@ TagInput.prototype.addtag = function (tag) {
   var del = document.createElement('a')
   del.innerText = 'x'
   del.href = '#'
-  del.onclick = this.removetag.bind(this, tag)
+  del.onclick = this.remove.bind(this, tag)
   li.appendChild(del)
 
   this.view.tags.appendChild(li)
 
   this.emit('add', tag)
+  return this;
 }
 
-TagInput.prototype.removetag = function (tag) {
+TagInput.prototype.remove = function(tag) {
   var i = this.model.tags.indexOf(tag)
   if (i === -1)
     return
