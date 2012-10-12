@@ -75,7 +75,7 @@ TagInput.prototype.add = function(tag) {
   }
 
   var del = document.createElement('a')
-  del.innerText = 'x'
+  del.innerText = '✕'
   del.href = '#'
   del.onclick = this.remove.bind(this, tag)
   li.appendChild(del)
