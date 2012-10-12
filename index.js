@@ -26,19 +26,15 @@ function TagInput(input, options) {
   var self = this
   this.options = options || {}
   this.tags = [];
-
-  this.view = { container: null, tags: null, input: input }
-
-  this.view.container = document.createElement('div')
-  this.view.container.className = 'tag-input'
-  this.view.container.style = input.style
-  this.view.tags = document.createElement('ul')
-
-  this.view.container.appendChild(this.view.tags)
-  input.parentNode.insertBefore(this.view.container, input)
-
-  input.parentNode.removeChild(input)
-  this.view.container.appendChild(input)
+  this.input = input;
+  this.el = document.createElement('div');
+  this.el.className = 'tag-input';
+  this.el.style = input.style;
+  this.ul = document.createElement('ul');
+  this.el.appendChild(this.ul);
+  input.parentNode.insertBefore(this.el, input);
+  input.parentNode.removeChild(input);
+  this.el.appendChild(input);
 
   input.onkeyup = function (e) {
     if (e.which === 13) {
@@ -75,7 +71,7 @@ TagInput.prototype.add = function(tag) {
   li.innerText = tag
   li.onclick = function (e) {
     e.preventDefault()
-    self.view.input.focus()
+    self.input.focus()
   }
 
   var del = document.createElement('a')
@@ -84,7 +80,7 @@ TagInput.prototype.add = function(tag) {
   del.onclick = this.remove.bind(this, tag)
   li.appendChild(del)
 
-  this.view.tags.appendChild(li)
+  this.ul.appendChild(li)
 
   this.emit('add', tag)
   return this;
@@ -97,14 +93,14 @@ TagInput.prototype.remove = function(tag) {
 
   this.tags.splice(i, 1)
 
-  var children = this.view.tags.childNodes
+  var children = this.ul.childNodes
   var child
   for (i = 0; i < children.length; i++) {
     child = children[i]
     if (child.getAttribute('data') === tag)
       break;
   }
-  this.view.tags.removeChild(child)
+  this.ul.removeChild(child)
 
   this.emit('remove', tag)
 }
