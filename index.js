@@ -25,8 +25,8 @@ function TagInput(input, opts) {
   if (!(this instanceof TagInput)) return new TagInput(input, opts)
   var self = this
   this.opts = opts || {}
+  this.tags = [];
 
-  this.model = { tags: [] }
   this.view = { container: null, tags: null, input: input }
 
   this.view.container = document.createElement('div')
@@ -65,10 +65,10 @@ Emitter(TagInput.prototype)
 
 TagInput.prototype.add = function(tag) {
   var self = this
-  if (this.model.tags.indexOf(tag) !== -1)
+  if (this.tags.indexOf(tag) !== -1)
     return
 
-  this.model.tags.push(tag)
+  this.tags.push(tag)
 
   var li = document.createElement('li')
   li.setAttribute('data', tag)
@@ -91,11 +91,11 @@ TagInput.prototype.add = function(tag) {
 }
 
 TagInput.prototype.remove = function(tag) {
-  var i = this.model.tags.indexOf(tag)
+  var i = this.tags.indexOf(tag)
   if (i === -1)
     return
 
-  this.model.tags.splice(i, 1)
+  this.tags.splice(i, 1)
 
   var children = this.view.tags.childNodes
   var child
@@ -108,9 +108,4 @@ TagInput.prototype.remove = function(tag) {
 
   this.emit('remove', tag)
 }
-
-TagInput.prototype.tags = function () {
-  return this.model.tags
-}
-
 
