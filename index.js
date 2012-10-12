@@ -14,17 +14,17 @@ module.exports = TagInput
 
 /**
  * Initialize a `TagInput` with the given
- * `input` element and `opts`.
+ * `input` element and `options`.
  *
  * @param {Element} input
- * @param {Object} opts
+ * @param {Object} options
  * @api public
  */
 
-function TagInput(input, opts) {
-  if (!(this instanceof TagInput)) return new TagInput(input, opts)
+function TagInput(input, options) {
+  if (!(this instanceof TagInput)) return new TagInput(input, options);
   var self = this
-  this.opts = opts || {}
+  this.options = options || {}
   this.tags = [];
 
   this.view = { container: null, tags: null, input: input }
