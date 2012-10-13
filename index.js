@@ -61,7 +61,9 @@ Emitter(TagInput.prototype)
 
 TagInput.prototype.add = function(tag) {
   var self = this
-  if ('' == tag.trim()) return;
+  tag = tag.trim();
+
+  if ('' == tag) return;
 
   if (this.tags.indexOf(tag) !== -1)
     return
