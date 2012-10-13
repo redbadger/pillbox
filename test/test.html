@@ -12,13 +12,41 @@
       }
       input {
         width: 200px;
+        font: 12px Helvetica, Arial;
       }
       .tag-input {
         border: 1px solid #eee;
         border-top-color: #ddd;
         padding: 5px;
+        border-radius: 2px;
+      }
+      .tag-input li {
+        margin-right: 5px;
+        font: 12px Helvetica, Arial;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        padding: 5px;
+      }
+      .tag-input li a {
+        display: inline-block;
+        font-size: 6px;
+        color: #888;
+        border: 1px solid #eee;
+        width: 10px;
+        height: 10px;
+        line-height: 10px;
+        text-align: center;
+        border-radius: 10px;
+        text-decoration: none;
+        margin-left: 5px;
+      }
+      .tag-input li a:hover {
+        background: #eee;
+      }
+      .tag-input li a:active {
+        background: #ddd;
       }
     </style>
-    <input id="tags" type="text" placeholder="Tags" />
+    <input id="tags" type="text" />
   </body>
 </html>
