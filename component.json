@@ -5,7 +5,8 @@
   "version": "0.0.2",
   "keywords": [ "tags", "tag", "input", "ui" ],
   "dependencies": { 
-    "component/emitter": "*"
+    "component/emitter": "*",
+    "component/set": "*"
   },
   "development": {},
   "scripts": [
