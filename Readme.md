@@ -13,41 +13,32 @@
 
 ## Example
 
-  ``` javascript
-    var TagInput = require('tag-input');
+``` javascript
+var TagInput = require('tag-input');
 
-    var taginput = TagInput(document.getElementById('tags'))
+var input = TagInput(document.getElementById('tags'))
 
-    taginput.on('add', function (tag) {
-      console.log(tag + ' added')
-      console.log(taginput.tags())
-    })
+input.on('add', function(tag){
+  console.log(tag + ' added');
+});
 
-    taginput.on('remove', function (tag) {
-      console.log(tag + ' removed')
-      console.log(taginput.tags())
-    })
+input.on('remove', function(tag){
+  console.log(tag + ' removed');
+});
+```
 
-  ```
+## Events
 
-## Notes about style
-  The pseudo input style is very basic, so you can adjust its looks to your site, You can extend it by adding to taginputContainer class.
+ - `add` (tag)
+ - `remove` (tag)
 
-## api
+## API
 
-### TagInput(input)
-  binds to a text input element
+### TagInput#add(tag)
 
-### addtag(tag)
-  adds a tag to the tag input from js
+  Add `tag` string if it does not already exist.
 
-### removetag(tag)
-  removes a tag from the tag input from js
+### TagInput#remove(tag)
 
-### event: 'add'
-  Called when a tag is added
-
-### event: 'removed'
-  Called when a tag is removed`
-
+  Remove `tag` string if it exists.
 
