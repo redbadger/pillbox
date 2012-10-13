@@ -1,15 +1,15 @@
 
 # tag-input
 
-  A [component](http://github.com/component/component) that turns a text input element into a pretty tags input.
-  Enables you to work with any MVC framework using simple events or you can get the tags from the inner model.
+  Tag set input token.
 
   ![Tags Input](http://f.cl.ly/items/0S262y000s1y441m0Z1l/Screen%20Shot%202012-10-12%20at%205.25.16%20PM.png)
 
 ## Install
-  ```
-    Component install tomerdmnt/tag-input
-  ```
+
+```
+  component install visionmedia/tag-input
+```
 
 ## Example
 
