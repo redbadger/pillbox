@@ -5,11 +5,11 @@ window.onload = function () {
 
   taginput.on('add', function (tag) {
     console.log(tag + ' added')
-    console.log(taginput.tags)
+    console.log(taginput.tags.values())
   })
 
   taginput.on('remove', function (tag) {
     console.log(tag + ' removed')
-    console.log(taginput.tags)
+    console.log(taginput.tags.values())
   })
 }

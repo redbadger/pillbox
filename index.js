@@ -3,14 +3,14 @@
  * Module dependencies.
  */
 
-var Emitter = require('emitter');
+var Emitter = require('emitter')
+  , Set = require('set');
 
 /**
  * Expose `TagInput`.
  */
 
 module.exports = TagInput
-
 
 /**
  * Initialize a `TagInput` with the given
@@ -25,8 +25,8 @@ function TagInput(input, options) {
   if (!(this instanceof TagInput)) return new TagInput(input, options);
   var self = this
   this.options = options || {}
-  this.tags = [];
   this.input = input;
+  this.tags = new Set;
   this.el = document.createElement('div');
   this.el.className = 'tag-input';
   this.el.style = input.style;
@@ -49,7 +49,7 @@ function TagInput(input, options) {
  * Mixin emitter.
  */
 
-Emitter(TagInput.prototype)
+Emitter(TagInput.prototype);
 
 /**
  * Add `tag`.
@@ -63,49 +63,58 @@ TagInput.prototype.add = function(tag) {
   var self = this
   tag = tag.trim();
 
+  // blank
   if ('' == tag) return;
 
-  if (this.tags.indexOf(tag) !== -1)
-    return
+  // exists
+  if (this.tags.has(tag)) return;
 
-  this.tags.push(tag)
+  // add it
+  this.tags.add(tag);
 
-  var li = document.createElement('li')
-  li.setAttribute('data', tag)
-  li.innerText = tag
-  li.onclick = function (e) {
-    e.preventDefault()
-    self.input.focus()
-  }
+  // list item
+  var li = document.createElement('li');
+  li.setAttribute('data', tag);
+  li.innerText = tag;
+  li.onclick = function(e) {
+    e.preventDefault();
+    self.input.focus();
+  };
 
-  var del = document.createElement('a')
-  del.innerText = '✕'
-  del.href = '#'
-  del.onclick = this.remove.bind(this, tag)
-  li.appendChild(del)
+  // delete link
+  var del = document.createElement('a');
+  del.innerText = '✕';
+  del.href = '#';
+  del.onclick = this.remove.bind(this, tag);
+  li.appendChild(del);
 
-  this.ul.appendChild(li)
+  this.ul.appendChild(li);
+  this.emit('add', tag);
 
-  this.emit('add', tag)
   return this;
 }
 
+/**
+ * Remove `tag`.
+ *
+ * @param {String} tag
+ * @return {TagInput} self
+ * @api public
+ */
+
 TagInput.prototype.remove = function(tag) {
-  var i = this.tags.indexOf(tag)
-  if (i === -1)
-    return
+  if (!this.tags.has(tag)) return this;
+  this.tags.remove(tag);
 
-  this.tags.splice(i, 1)
-
-  var children = this.ul.childNodes
-  var child
-  for (i = 0; i < children.length; i++) {
-    child = children[i]
-    if (child.getAttribute('data') === tag)
-      break;
+  var li;
+  for (var i = 0; i < this.ul.childNodes.length; ++i) {
+    li = this.ul.childNodes[i];
+    if (tag == li.getAttribute('data')) break;
   }
-  this.ul.removeChild(child)
 
-  this.emit('remove', tag)
+  this.ul.removeChild(li);
+  this.emit('remove', tag);
+
+  return this;
 }
 
