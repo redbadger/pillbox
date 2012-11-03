@@ -1,5 +1,5 @@
 
-build: components index.js tag-input.css
+build: components index.js pillbox.css
 	@component build --dev
 
 components:

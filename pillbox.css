@@ -1,5 +1,5 @@
 
-.tag-input {
+.pillbox {
   display: inline-block;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -8,19 +8,19 @@
   user-select: none;
 }
 
-.tag-input input, 
-.tag-input input:focus {
+.pillbox input, 
+.pillbox input:focus {
   border: none;
   outline: none;
 }
 
-.tag-input ul {
+.pillbox ul {
   list-style: none;
   padding: 0px;
   margin: 0px;
   display: inline;
 }
 
-.tag-input ul li {
+.pillbox ul li {
   display: inline-block;
 }

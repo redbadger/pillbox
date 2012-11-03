@@ -1,9 +1,9 @@
 {
-  "name": "tag-input",
-  "repo": "tomerdmnt/tag-input",
-  "description": "Turns a text input element into a pretty tags input",
-  "version": "0.0.2",
-  "keywords": [ "tags", "tag", "input", "ui" ],
+  "name": "pillbox",
+  "repo": "component/pillbox",
+  "description": "Tokenized input or 'pillbox' for tags etc",
+  "version": "0.0.1",
+  "keywords": ["tags", "tag", "input", "ui", "pillbox"],
   "dependencies": { 
     "component/emitter": "*",
     "component/set": "*"
@@ -13,6 +13,6 @@
     "index.js"
   ],
   "styles": [
-    "tag-input.css"
+    "pillbox.css"
   ]
 }

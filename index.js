@@ -7,13 +7,13 @@ var Emitter = require('emitter')
   , Set = require('set');
 
 /**
- * Expose `TagInput`.
+ * Expose `Pillbox`.
  */
 
-module.exports = TagInput
+module.exports = Pillbox
 
 /**
- * Initialize a `TagInput` with the given
+ * Initialize a `Pillbox` with the given
  * `input` element and `options`.
  *
  * @param {Element} input
@@ -21,14 +21,14 @@ module.exports = TagInput
  * @api public
  */
 
-function TagInput(input, options) {
-  if (!(this instanceof TagInput)) return new TagInput(input, options);
+function Pillbox(input, options) {
+  if (!(this instanceof Pillbox)) return new Pillbox(input, options);
   var self = this
   this.options = options || {}
   this.input = input;
   this.tags = new Set;
   this.el = document.createElement('div');
-  this.el.className = 'tag-input';
+  this.el.className = 'pillbox';
   this.el.style = input.style;
   this.ul = document.createElement('ul');
   this.el.appendChild(this.ul);
@@ -42,24 +42,24 @@ function TagInput(input, options) {
       self.add(e.target.value)
       e.target.value = ''
     }
-  }
+  };
 }
 
 /**
  * Mixin emitter.
  */
 
-Emitter(TagInput.prototype);
+Emitter(Pillbox.prototype);
 
 /**
  * Add `tag`.
  *
  * @param {String} tag
- * @return {TagInput} self
+ * @return {Pillbox} self
  * @api public
  */
 
-TagInput.prototype.add = function(tag) {
+Pillbox.prototype.add = function(tag) {
   var self = this
   tag = tag.trim();
 
@@ -98,11 +98,11 @@ TagInput.prototype.add = function(tag) {
  * Remove `tag`.
  *
  * @param {String} tag
- * @return {TagInput} self
+ * @return {Pillbox} self
  * @api public
  */
 
-TagInput.prototype.remove = function(tag) {
+Pillbox.prototype.remove = function(tag) {
   if (!this.tags.has(tag)) return this;
   this.tags.remove(tag);
 
