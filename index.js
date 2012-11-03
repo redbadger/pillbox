@@ -4,6 +4,7 @@
  */
 
 var Emitter = require('emitter')
+  , event = require('event')
   , Set = require('set');
 
 /**
@@ -35,18 +36,8 @@ function Pillbox(input, options) {
   input.parentNode.insertBefore(this.el, input);
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
-
-  this.el.onclick = function(){
-    input.focus();
-  };
-
-  input.onkeyup = function(e){
-    if (e.which === 13) {
-      e.preventDefault()
-      self.add(e.target.value)
-      e.target.value = ''
-    }
-  };
+  event.bind(this.el, 'click', input.focus.bind(input));
+  event.bind(this.el, 'keyup', this.onkeyup.bind(this));
 }
 
 /**
@@ -54,6 +45,20 @@ function Pillbox(input, options) {
  */
 
 Emitter(Pillbox.prototype);
+
+/**
+ * Handle keyup.
+ * 
+ * @api private
+ */
+
+Pillbox.prototype.onkeyup = function(e){
+  if (13 == e.which) {
+    e.preventDefault();
+    this.add(e.target.value);
+    e.target.value = '';
+  }
+};
 
 /**
  * Add `tag`.
