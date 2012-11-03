@@ -69,6 +69,17 @@ Pillbox.prototype.onkeyup = function(e){
 };
 
 /**
+ * Return an array of the tag strings.
+ *
+ * @return {Array}
+ * @api public
+ */
+
+Pillbox.prototype.values = function(){
+  return this.tags.values();
+};
+
+/**
  * Return the last member of the set.
  *
  * @return {String}
