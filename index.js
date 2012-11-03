@@ -4,6 +4,7 @@
  */
 
 var Emitter = require('emitter')
+  , keyname = require('keyname')
   , event = require('event')
   , Set = require('set');
 
@@ -37,7 +38,7 @@ function Pillbox(input, options) {
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
   event.bind(this.el, 'click', input.focus.bind(input));
-  event.bind(this.el, 'keyup', this.onkeyup.bind(this));
+  event.bind(this.el, 'keydown', this.onkeyup.bind(this));
 }
 
 /**
@@ -53,11 +54,29 @@ Emitter(Pillbox.prototype);
  */
 
 Pillbox.prototype.onkeyup = function(e){
-  if (13 == e.which) {
-    e.preventDefault();
-    this.add(e.target.value);
-    e.target.value = '';
+  switch (keyname(e.which)) {
+    case 'enter':
+      e.preventDefault();
+      this.add(e.target.value);
+      e.target.value = '';
+      break;
+    case 'backspace':
+      if ('' == e.target.value) {
+        this.remove(this.last());
+      }
+      break;
   }
+};
+
+/**
+ * Return the last member of the set.
+ *
+ * @return {String}
+ * @api private
+ */
+
+Pillbox.prototype.last = function(){
+  return this.tags.vals[this.tags.vals.length - 1];
 };
 
 /**
