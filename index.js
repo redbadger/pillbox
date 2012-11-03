@@ -36,7 +36,11 @@ function Pillbox(input, options) {
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
 
-  input.onkeyup = function (e) {
+  this.el.onclick = function(){
+    input.focus();
+  };
+
+  input.onkeyup = function(e){
     if (e.which === 13) {
       e.preventDefault()
       self.add(e.target.value)
