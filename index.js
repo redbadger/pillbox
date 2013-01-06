@@ -114,7 +114,7 @@ Pillbox.prototype.add = function(tag) {
   // list item
   var li = document.createElement('li');
   li.setAttribute('data', tag);
-  setText(li, tag);
+  li.appendChild(document.createTextNode(tag));
   li.onclick = function(e) {
     e.preventDefault();
     self.input.focus();
@@ -122,7 +122,7 @@ Pillbox.prototype.add = function(tag) {
 
   // delete link
   var del = document.createElement('a');
-  setText(del, '✕');
+  del.appendChild(document.createTextNode('✕'));
   del.href = '#';
   del.onclick = this.remove.bind(this, tag);
   li.appendChild(del);
@@ -156,19 +156,4 @@ Pillbox.prototype.remove = function(tag) {
 
   return this;
 }
-
-
-/**
- * Cross-browser innerText
- *
- * @param {Element} el
- * @param {String} text
- * @api private
- */
-
-function setText(el, text) {
-  el.innerHTML = '';
-  el.appendChild(document.createTextNode(text));
-}
-
 
