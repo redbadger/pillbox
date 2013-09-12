@@ -5,7 +5,7 @@
 
 var Emitter = require('emitter')
   , keyname = require('keyname')
-  , event = require('event')
+  , events = require('events')
   , each = require('each')
   , Set = require('set');
 
@@ -38,8 +38,8 @@ function Pillbox(input, options) {
   input.parentNode.insertBefore(this.el, input);
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
-  event.bind(this.el, 'click', input.focus.bind(input));
-  event.bind(this.el, 'keydown', this.onkeyup.bind(this));
+  this.events = events(this.el, this);
+  this.bind();
 }
 
 /**
@@ -47,6 +47,31 @@ function Pillbox(input, options) {
  */
 
 Emitter(Pillbox.prototype);
+
+/**
+ * Bind internal events.
+ *
+ * @return {Pillbox}
+ * @api public
+ */
+
+Pillbox.prototype.bind = function(){
+  this.events.bind('click', this.input.focus.bind(input));
+  this.events.bind('keydown', this.onkeyup.bind(this));
+  return this;
+};
+
+/**
+ * Unbind internal events.
+ *
+ * @return {Pillbox}
+ * @api public
+ */
+
+Pillbox.prototype.unbind = function(){
+  this.events.unbind();
+  return this;
+};
 
 /**
  * Handle keyup.
