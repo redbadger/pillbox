@@ -56,8 +56,8 @@ Emitter(Pillbox.prototype);
  */
 
 Pillbox.prototype.bind = function(){
-  this.events.bind('click', this.input.focus.bind(input));
-  this.events.bind('keydown', this.onkeyup.bind(this));
+  this.events.bind('click');
+  this.events.bind('keydown');
   return this;
 };
 
@@ -79,7 +79,7 @@ Pillbox.prototype.unbind = function(){
  * @api private
  */
 
-Pillbox.prototype.onkeyup = function(e){
+Pillbox.prototype.onkeydown = function(e){
   switch (keyname(e.which)) {
     case 'enter':
       e.preventDefault();
@@ -98,6 +98,16 @@ Pillbox.prototype.onkeyup = function(e){
       }
       break;
   }
+};
+
+/**
+ * Handle click.
+ *
+ * @api private
+ */
+
+Pillbox.prototype.onclick = function(){
+  this.input.focus();
 };
 
 /**
