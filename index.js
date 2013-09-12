@@ -6,6 +6,7 @@
 var Emitter = require('emitter')
   , keyname = require('keyname')
   , event = require('event')
+  , each = require('each')
   , Set = require('set');
 
 /**
@@ -75,14 +76,25 @@ Pillbox.prototype.onkeyup = function(e){
 };
 
 /**
- * Return an array of the tag strings.
+ * Set / Get all values.
  *
- * @return {Array}
+ * @param {Array} vals
+ * @return {Array|Pillbox}
  * @api public
  */
 
-Pillbox.prototype.values = function(){
-  return this.tags.values();
+Pillbox.prototype.values = function(vals){
+  var self = this;
+
+  if (0 == arguments.length) {
+    return this.tags.values();
+  }
+
+  each(vals, function(value){
+    self.add(value);
+  });
+
+  return this;
 };
 
 /**
