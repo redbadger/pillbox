@@ -48,9 +48,9 @@ input.on('remove', function(tag){
 
   Remove `tag` string if it exists.
 
-### Pillbox#values()
+### Pillbox#values([array])
 
-  Return an array of the tags.
+  Set / Get the tags.
 
 # License
 
