@@ -98,7 +98,27 @@ Pillbox.prototype.onkeydown = function(e){
       break;
     case 'backspace':
       if ('' == e.target.value) {
-        this.remove(this.last());
+        var tag = e.target.previousSibling;
+        if (!tag) return;
+        this.remove(tag.getAttribute('data'));
+      }
+      break;
+    case 'left':
+      if ('' == e.target.value) {
+        var tag = e.target.previousSibling;
+        if (!tag) return;
+        this.input.blur();
+        this.el.insertBefore(this.input, tag);
+        this.input.focus();
+      }
+      break;
+    case 'right':
+      if ('' == e.target.value) {
+        var tag = e.target.nextSibling;
+        if (!tag) return;
+        this.input.blur();
+        this.el.insertBefore(tag, this.input);
+        this.input.focus();
       }
       break;
   }
