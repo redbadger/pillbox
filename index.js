@@ -4,6 +4,7 @@
  */
 
 var Emitter = require('emitter')
+  , grow = require('grow-width')
   , keyname = require('keyname')
   , events = require('events')
   , each = require('each')
@@ -37,6 +38,8 @@ function Pillbox(input, options) {
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
   this.events = events(this.el, this);
+  this.grow = grow(this.input);
+  this.grow.update();
   this.bind();
 }
 
@@ -68,6 +71,7 @@ Pillbox.prototype.bind = function(){
 
 Pillbox.prototype.unbind = function(){
   this.events.unbind();
+  this.grow.unbind();
   return this;
 };
 
@@ -83,12 +87,14 @@ Pillbox.prototype.onkeydown = function(e){
       e.preventDefault();
       this.add(e.target.value);
       e.target.value = '';
+      this.grow.update();
       break;
     case 'space':
       if (!this.options.space) return;
       e.preventDefault();
       this.add(e.target.value);
       e.target.value = '';
+      this.grow.update();
       break;
     case 'backspace':
       if ('' == e.target.value) {

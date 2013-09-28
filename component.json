@@ -7,6 +7,7 @@
   "dependencies": {
     "component/events": "*",
     "component/keyname": "*",
+    "yields/grow-width": "*",
     "component/emitter": "*",
     "component/each": "*",
     "component/set": "*"
