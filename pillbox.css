@@ -8,19 +8,8 @@
   user-select: none;
 }
 
-.pillbox input, 
+.pillbox input,
 .pillbox input:focus {
   border: none;
   outline: none;
-}
-
-.pillbox ul {
-  list-style: none;
-  padding: 0px;
-  margin: 0px;
-  display: inline;
-}
-
-.pillbox ul li {
-  display: inline-block;
 }

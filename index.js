@@ -33,8 +33,6 @@ function Pillbox(input, options) {
   this.el = document.createElement('div');
   this.el.className = 'pillbox';
   this.el.style = input.style;
-  this.ul = document.createElement('ul');
-  this.el.appendChild(this.ul);
   input.parentNode.insertBefore(this.el, input);
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
@@ -168,10 +166,10 @@ Pillbox.prototype.add = function(tag) {
   this.tags.add(tag);
 
   // list item
-  var li = document.createElement('li');
-  li.setAttribute('data', tag);
-  li.appendChild(document.createTextNode(tag));
-  li.onclick = function(e) {
+  var span = document.createElement('span');
+  span.setAttribute('data', tag);
+  span.appendChild(document.createTextNode(tag));
+  span.onclick = function(e) {
     e.preventDefault();
     self.input.focus();
   };
@@ -181,9 +179,9 @@ Pillbox.prototype.add = function(tag) {
   del.appendChild(document.createTextNode('✕'));
   del.href = '#';
   del.onclick = this.remove.bind(this, tag);
-  li.appendChild(del);
+  span.appendChild(del);
 
-  this.ul.appendChild(li);
+  this.el.insertBefore(span, this.input);
   this.emit('add', tag);
 
   return this;
@@ -201,13 +199,13 @@ Pillbox.prototype.remove = function(tag) {
   if (!this.tags.has(tag)) return this;
   this.tags.remove(tag);
 
-  var li;
-  for (var i = 0; i < this.ul.childNodes.length; ++i) {
-    li = this.ul.childNodes[i];
-    if (tag == li.getAttribute('data')) break;
+  var span;
+  for (var i = 0; i < this.el.childNodes.length; ++i) {
+    span = this.el.childNodes[i];
+    if (tag == span.getAttribute('data')) break;
   }
 
-  this.ul.removeChild(li);
+  this.el.removeChild(span);
   this.emit('remove', tag);
 
   return this;
