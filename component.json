@@ -2,7 +2,7 @@
   "name": "pillbox",
   "repo": "component/pillbox",
   "description": "Tokenized input or 'pillbox' for tags etc",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "keywords": ["tags", "tag", "input", "ui", "pillbox"],
   "dependencies": {
     "component/events": "*",

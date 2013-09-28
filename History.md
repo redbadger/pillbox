@@ -1,4 +1,11 @@
 
+1.3.0 / 2013-09-28
+==================
+
+ * jump between tags on left, right closes #6
+ * grow input as the user types
+ * use <span> instead of <li>
+
 1.2.1 / 2013-09-12
 ==================
 
