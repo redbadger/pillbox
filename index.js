@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -26,7 +25,6 @@ module.exports = Pillbox
 
 function Pillbox(input, options) {
   if (!(this instanceof Pillbox)) return new Pillbox(input, options);
-  var self = this
   this.options = options || {}
   this.input = input;
   this.tags = new Set;
