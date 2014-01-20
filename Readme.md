@@ -1,14 +1,19 @@
 
 # Pillbox
 
-  Pillbox input component, a fork of [tomerdmnt/tag-input](https://github.com/tomerdmnt/tag-input).
+  Pillbox input component, a fork of [component/pillbox](https://github.com/component/pillbox), which itself is a fork of [tomerdmnt/tag-input](https://github.com/tomerdmnt/tag-input).
+
+  Adds autocomplete support to the pillbox. You can only allow whitelisted tags, or just use the autocomplete as suggestions.
+
 
   ![Tags Input](http://f.cl.ly/items/0S262y000s1y441m0Z1l/Screen%20Shot%202012-10-12%20at%205.25.16%20PM.png)
+
+  Autocomplete does not support server round trip completion at th emoment.
 
 ## Install
 
 ```
-$ component install component/pillbox
+$ component install redbadger/pillbox
 ```
 
 ## Example
