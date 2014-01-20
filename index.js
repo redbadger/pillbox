@@ -3,6 +3,7 @@
  */
 
 var Emitter = require('emitter')
+  , Dropdown = require('dropdown')
   , keyname = require('keyname')
   , events = require('events')
   , each = require('each')
@@ -23,9 +24,10 @@ module.exports = Pillbox
  * @api public
  */
 
-function Pillbox(input, options) {
-  if (!(this instanceof Pillbox)) return new Pillbox(input, options);
-  this.options = options || {}
+function Pillbox(input, possibilities, options) {
+  if (!(this instanceof Pillbox)) return new Pillbox(input, possibilities, options);
+  this.options = options || {};
+  this.possibilities = possibilities || [];
   this.input = input;
   this.tags = new Set;
   this.el = document.createElement('div');
@@ -35,6 +37,7 @@ function Pillbox(input, options) {
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
   this.events = events(this.el, this);
+  this.dropdown = new Dropdown(input, {menu: true});
   this.bind();
 }
 
@@ -52,8 +55,12 @@ Emitter(Pillbox.prototype);
  */
 
 Pillbox.prototype.bind = function(){
+  var that = this;
+
   this.events.bind('click');
   this.events.bind('keydown');
+  this.events.bind('keyup');
+  this.dropdown.on('focus', function(e) { that.onfocus(e); });
   return this;
 };
 
@@ -70,23 +77,29 @@ Pillbox.prototype.unbind = function(){
 };
 
 /**
- * Handle keyup.
+ * Handle keydown.
  *
  * @api private
  */
 
 Pillbox.prototype.onkeydown = function(e){
+  var that = this;
+  add = function() {
+    if(that.valid(e.target.value)) {
+      that.add(e.target.value);
+      e.target.value = '';
+    }
+  }
+
   switch (keyname(e.which)) {
     case 'enter':
       e.preventDefault();
-      this.add(e.target.value);
-      e.target.value = '';
+      add();
       break;
     case 'space':
       if (!this.options.space) return;
       e.preventDefault();
-      this.add(e.target.value);
-      e.target.value = '';
+      add();
       break;
     case 'backspace':
       if ('' == e.target.value) {
@@ -97,6 +110,31 @@ Pillbox.prototype.onkeydown = function(e){
 };
 
 /**
+ * Handle keyup.
+ *
+ * @api private
+ */
+
+Pillbox.prototype.onkeyup = function(e){
+  if(e.target.value.length < 1) {
+    this.dropdown.hide();
+    return
+  }
+
+  matching = this.matchingTags(e.target.value);
+  items = [];
+  var that = this;
+
+  that.dropdown.empty();
+  each(matching, function(tag) {
+    that.dropdown.add(tag);
+  });
+  this.dropdown.onclick(this.el, e);
+  this.dropdown.show();
+};
+
+
+/**
  * Handle click.
  *
  * @api private
@@ -105,6 +143,13 @@ Pillbox.prototype.onkeydown = function(e){
 Pillbox.prototype.onclick = function(){
   this.input.focus();
 };
+
+
+Pillbox.prototype.onfocus = function(tag) {
+  this.add(tag);
+  this.input.value = '';
+  this.input.focus();
+}
 
 /**
  * Set / Get all values.
@@ -127,6 +172,7 @@ Pillbox.prototype.values = function(vals){
 
   return this;
 };
+
 
 /**
  * Return the last member of the set.
@@ -209,3 +255,26 @@ Pillbox.prototype.remove = function(tag) {
   return this;
 }
 
+/**
+ * Filter down possibilities to matching
+ *
+ * @param {String} text
+ * @return {Array} matching possibilities
+ * @api private
+ */
+
+Pillbox.prototype.matchingTags = function(text) {
+  matching = []
+  each(this.possibilities, function(it) {
+    if(it.indexOf(text) == 0) matching.push(it);
+  });
+
+  return matching;
+}
+
+Pillbox.prototype.valid = function(tag) {
+  if(!this.options.strict)
+    return true;
+
+  return this.possibilities.indexOf(tag) != -1;
+}

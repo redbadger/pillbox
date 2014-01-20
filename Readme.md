@@ -34,11 +34,12 @@ input.on('remove', function(tag){
 
 ## API
 
-### Pillbox(input, options)
+### Pillbox(input, possibilities, options)
 
-  Initialize with the given `input` element and `options`. Available options include:
+  Initialize with the given `input` element, possible tags `possibilities` and `options`. Available options include:
 
   * `lowercase`: all added tags get converted to lowercase.
+  * `strict`: only allow tags listed in `possibilities`
 
 ### Pillbox#add(tag)
 

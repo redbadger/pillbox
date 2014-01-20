@@ -1,15 +1,16 @@
 {
   "name": "pillbox",
-  "repo": "component/pillbox",
-  "description": "Tokenized input or 'pillbox' for tags etc",
-  "version": "1.3.1",
+  "repo": "redbadger/pillbox",
+  "description": "Tokenized input or 'pillbox' for tags etc with autocomplete support",
+  "version": "1.0.0",
   "keywords": ["tags", "tag", "input", "ui", "pillbox"],
   "dependencies": {
     "component/events": "*",
     "component/keyname": "*",
     "component/emitter": "*",
     "component/each": "*",
-    "component/set": "*"
+    "component/set": "*",
+    "component/dropdown": "*"
   },
   "development": {},
   "scripts": [
