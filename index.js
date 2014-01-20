@@ -85,8 +85,8 @@ Pillbox.prototype.unbind = function(){
 Pillbox.prototype.onkeydown = function(e){
   var that = this;
   add = function() {
-    if(that.valid(e.target.value)) {
-      that.add(e.target.value);
+    if(tag = that.valid(e.target.value)) {
+      that.add(tag);
       e.target.value = '';
     }
   }
@@ -266,7 +266,7 @@ Pillbox.prototype.remove = function(tag) {
 Pillbox.prototype.matchingTags = function(text) {
   matching = []
   each(this.possibilities, function(it) {
-    if(it.indexOf(text) == 0) matching.push(it);
+    if(it.toLowerCase().indexOf(text.toLowerCase()) == 0) matching.push(it);
   });
 
   return matching;
@@ -276,5 +276,9 @@ Pillbox.prototype.valid = function(tag) {
   if(!this.options.strict)
     return true;
 
-  return this.possibilities.indexOf(tag) != -1;
+  each(this.possibilities, function(it) {
+    if(it.toLowerCase() == tag.toLowerCase()) return it;
+  });
+
+  return false
 }
