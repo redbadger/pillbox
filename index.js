@@ -127,7 +127,7 @@ Pillbox.prototype.onkeyup = function(e){
 
   that.dropdown.empty();
   each(matching, function(tag) {
-    that.dropdown.add(tag);
+    that.dropdown.add(tag, tag);
   });
   this.dropdown.onclick(this.el, e);
   this.dropdown.show();
@@ -276,9 +276,12 @@ Pillbox.prototype.valid = function(tag) {
   if(!this.options.strict)
     return true;
 
+  var result = false;
+
   each(this.possibilities, function(it) {
-    if(it.toLowerCase() == tag.toLowerCase()) return it;
+    if(it.toLowerCase() == tag.toLowerCase())
+      return result = it;
   });
 
-  return false
+  return result;
 }
