@@ -127,7 +127,7 @@ Pillbox.prototype.onkeyup = function(e){
 
   that.dropdown.empty();
   each(matching, function(tag) {
-    that.dropdown.add(tag, tag);
+    that.dropdown.add(tag);
   });
   this.dropdown.onclick(this.el, e);
   this.dropdown.show();
@@ -145,7 +145,10 @@ Pillbox.prototype.onclick = function(){
 };
 
 
-Pillbox.prototype.onfocus = function(tag) {
+Pillbox.prototype.onfocus = function(slug) {
+  var tagEl = this.dropdown.items[slug];
+  var tag = tagEl.childNodes[0].text;
+
   this.add(tag);
   this.input.value = '';
   this.input.focus();
