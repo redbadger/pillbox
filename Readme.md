@@ -7,7 +7,7 @@
 
   ![Tags Input](https://raw.github.com/redbadger/pillbox/master/pillbox_demo.gif)
 
-  Autocomplete does not support server round trip completion at th emoment.
+  Autocomplete does not support server round trip completion at the moment.
 
 ## How to use
 
